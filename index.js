@@ -1,9 +1,9 @@
 function setupControls() {
-  document.addEventListener('keydown', movePlayer)
+  document.addEventListener('keydown', playerControlsDown)
   document.addEventListener('keyup', stopPlayer)
 }
 
-function  movePlayer(e) {
+function  playerControlsDown(e) {
   switch(e.which) {
     case W_KEY:
       player.facing = "up"
@@ -21,6 +21,8 @@ function  movePlayer(e) {
       player.facing = "right"
       player.moving = true
       break;
+    case SPACEBAR:
+      player.shootLaser()
   }
 }
 
@@ -44,11 +46,13 @@ function stopPlayer(e) {
 function update() {
   game.update()
   player.update()
+  laserbeams.forEach(laserbeam => laserbeam.update())
 }
 
 function draw() {
   game.draw()
   player.draw()
+  laserbeams.forEach(laserbeam => laserbeam.draw())
 }
 
 function gameLoop() {

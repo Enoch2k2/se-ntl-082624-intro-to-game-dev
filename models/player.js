@@ -8,6 +8,8 @@ class Player {
     this.speed = 1.5
     this.facing = 'up'
     this.moving = false
+    this.canFire = true
+    this.fireDelay = 250
   }
 
   update() {
@@ -49,6 +51,57 @@ class Player {
       player.y = 0
     } else if ((player.y + player.height) >= game.height) {
       player.y = game.height - player.height
+    }
+  }
+
+  shootLaser() {
+    const offset = 1
+    let laserbeam
+    if(this.canFire) {
+      this.canFire = false
+      setTimeout(() => this.canFire = true, this.fireDelay)
+      switch(player.facing) {
+        case "up":
+          laserbeam = new LaserBeam(
+            player.x + (player.width / 2) - 3.5,
+            player.y - (30 + offset),
+            7,
+            30,
+            player.facing
+          )
+          laserbeams.push(laserbeam)
+          break
+        case "down":
+          laserbeam = new LaserBeam(
+            player.x + (player.width / 2) - 3.5,
+            player.y + player.height + offset,
+            7,
+            30,
+            player.facing
+          )
+          laserbeams.push(laserbeam)
+          break
+        case "left":
+          laserbeam = new LaserBeam(
+            player.x - (30 + offset),
+            player.y + (player.height / 2) - 3.5,
+            30,
+            7,
+            player.facing
+          )
+          laserbeams.push(laserbeam)
+          break
+        case "right":
+          laserbeam = new LaserBeam(
+            player.x + player.height + offset,
+            player.y + (player.height / 2) - 3.5,
+            30,
+            7,
+            player.facing
+          )
+          laserbeams.push(laserbeam)
+          break
+      }
     }
   }
 }

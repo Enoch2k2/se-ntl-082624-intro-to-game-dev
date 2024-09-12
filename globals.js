@@ -6,5 +6,8 @@ const W_KEY = 87
 const A_KEY = 65
 const D_KEY = 68
 const S_KEY = 83
+const SPACEBAR = 32
+
+const laserbeams = []
 
 let game, player;
